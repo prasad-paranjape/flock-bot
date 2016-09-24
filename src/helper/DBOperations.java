@@ -17,7 +17,7 @@ public class DBOperations
         DB.closeConnection();
     }
 
-    public ArrayList<ArrayList<String>> getArrayListFromDB(String sql) throws SQLException
+    public static ArrayList<ArrayList<String>> getArrayListFromDB(String sql) throws SQLException
     {
         try (Statement st = DB.getConnection().createStatement())
         {
@@ -42,7 +42,7 @@ public class DBOperations
         }
     }
 
-    public ArrayList<String> getListFromDB(String sql) throws SQLException
+    public static ArrayList<String> getListFromDB(String sql) throws SQLException
     {
         try (Statement st = DB.getConnection().createStatement())
         {
@@ -58,7 +58,7 @@ public class DBOperations
         }
     }
 
-    public void saveAppService(AppServiceObj appServiceObj) throws SQLException
+    public static void saveAppService(AppServiceObj appServiceObj) throws SQLException
     {
         try (Connection connection = DBOperations.DB.getConnection())
         {
@@ -78,7 +78,7 @@ public class DBOperations
         }
     }
 
-    private boolean agentExists(String userId) throws SQLException
+    private static boolean agentExists(String userId) throws SQLException
     {
         try (Connection connection = DBOperations.DB.getConnection())
         {
@@ -97,12 +97,12 @@ public class DBOperations
         return false;
     }
 
-    public void getCompanyServiceParams(String companyId, String serviceId)
+    public static void getCompanyServiceParams(String companyId, String serviceId)
     {
         //TODO if required
     }
 
-    public void uninstallAppService(String userId) throws SQLException
+    public static void uninstallAppService(String userId) throws SQLException
     {
         try (Connection connection = DBOperations.DB.getConnection())
         {
@@ -116,12 +116,12 @@ public class DBOperations
         }
     }
 
-    public void getSaveFacebookMessage(String companyId, String serviceId, String sender_id, String message)
+    public static void getSaveFacebookMessage(String companyId, String serviceId, String sender_id, String message)
     {
 
     }
 
-    public List<String> getQueuedCustomerList() throws SQLException {
+    public static List<String> getQueuedCustomerList() throws SQLException {
         return getListFromDB("SELECT * FROM customer");
     }
 

@@ -8,9 +8,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Canned Responses</title>
 </head>
 <body>
 
+
+<script src="http://code.jquery.com/jquery-latest.min.js"
+        type="text/javascript"></script>
+
+<script>
+ $(document).ready(function(){
+
+     var canned=$('<a>This is a canned response</a>');
+     $(canned).click(function(){
+         $(this).css("background","#ccc");
+     });
+     $('body').append(canned);
+ });
+</script>
 </body>
 </html>

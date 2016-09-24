@@ -65,7 +65,14 @@ public class AppService extends HttpServlet
 
         body = stringBuilder.toString();
         System.out.println(body);
-        AppServiceObj obj = new Gson().fromJson(body, AppServiceObj.class);
+        try {
+            AppServiceObj obj = new Gson().fromJson(body, AppServiceObj.class);
+            obj.save();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         ServletOutputStream out = response.getOutputStream();
         out.print("AppService");

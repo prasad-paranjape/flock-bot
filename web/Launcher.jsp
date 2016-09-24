@@ -14,10 +14,31 @@
     <title></title>
 </head>
 <body>
+
 <ul>
 <c:forEach items="${requestScope.customerList}" var="customer">
-    <li>${customer}</li>
+    <li><a href="#" data-url="${customer}" onclick="callback(this)">${customer}</a></li>
 </c:forEach>
 </ul>
+
+
+<script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="js/constant.js" type="text/javascript"></script>
+
+<script>
+    function callback(obj) {
+        jQuery.ajax({
+            url: serverUrl + "/startchat",
+            type: "POST",
+            data: {
+                userId: '${param.userId}',
+                customerId : jQuery(obj).data('url')
+            }
+        }).done(function () {
+            jQuery(this).addClass("done");
+        });
+    }
+</script>
 </body>
+
 </html>

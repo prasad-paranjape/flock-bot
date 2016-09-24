@@ -38,4 +38,13 @@
         <servlet-name>QC</servlet-name>
         <url-pattern>/qc</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StartChat</servlet-name>
+        <servlet-class>servlets.InitiateChat</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StartChat</servlet-name>
+        <url-pattern>/startchat</url-pattern>
+    </servlet-mapping>
 </web-app>

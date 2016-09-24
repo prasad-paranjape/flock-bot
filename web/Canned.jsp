@@ -13,7 +13,7 @@
 <body>
 
 
-<script src="http://code.jquery.com/jquery-latest.min.js"
+<script src="https://code.jquery.com/jquery-latest.min.js"
         type="text/javascript"></script>
 
 <script>

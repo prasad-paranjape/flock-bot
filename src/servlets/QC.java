@@ -42,7 +42,8 @@ public class QC extends HttpServlet
         try {
             List<String> customerList = DBOperations.getQueuedCustomerList();
             request.setAttribute("customerList", customerList);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Launcher.jsp");
+            StringBuilder params = new StringBuilder().append("userId=" + obj.getUserId());
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Launcher.jsp?" + params.toString());
             requestDispatcher.forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();

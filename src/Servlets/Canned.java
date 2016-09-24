@@ -3,6 +3,7 @@ package servlets;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -26,11 +27,12 @@ public class Canned extends HttpServlet
     {
         processRequest( request,  response);
     }
-    void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
+    void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
         LOGGER.log(Priority.INFO, request);
         ServletOutputStream out = response.getOutputStream();
-        out.print("CAnned");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Canned.jsp");
+        requestDispatcher.forward(request,response);
 
     }
 }

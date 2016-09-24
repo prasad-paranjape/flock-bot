@@ -1,4 +1,7 @@
 .idea/workspace.xml
+.idea/dataSources.local.xml
+.idea/dataSources.xml
+.idea/dataSources.ids
 out/
 lib/.DS_Store
 

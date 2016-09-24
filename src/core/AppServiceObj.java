@@ -1,5 +1,7 @@
 package core;
 
+import co.flock.www.FlockApiClient;
+import co.flock.www.model.User;
 import helper.DBOperations;
 
 import java.sql.Connection;
@@ -17,6 +19,18 @@ public class AppServiceObj {
     public void save() throws SQLException {
         DBOperations db=new DBOperations();
         db.saveAppService(this);
+    }
+
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
 }

@@ -62,17 +62,39 @@ public class DBOperations
     {
         try (Connection connection = DBOperations.DB.getConnection())
         {
-            String sql = "insert into agent (flockUserid, flockUsertoken, flockName, companyId) values(?,?,?,?)";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            if (!agentExists(appServiceObj.userId))
             {
-                preparedStatement.setString(1, appServiceObj.userId);
-                preparedStatement.setString(2, appServiceObj.userToken);
-                preparedStatement.setString(3, appServiceObj.name);
-                preparedStatement.setInt(4, 1);
-                int i = preparedStatement.executeUpdate();
-                System.out.println(i + " records inserted");
+                String sql = "insert into agent (flockUserid, flockUsertoken, flockName, companyId) values(?,?,?,?)";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+                {
+                    preparedStatement.setString(1, appServiceObj.userId);
+                    preparedStatement.setString(2, appServiceObj.userToken);
+                    preparedStatement.setString(3, appServiceObj.name);
+                    preparedStatement.setInt(4, 1);
+                    int i = preparedStatement.executeUpdate();
+                    System.out.println(i + " records inserted");
+                }
             }
         }
+    }
+
+    private boolean agentExists(String userId) throws SQLException
+    {
+        try (Connection connection = DBOperations.DB.getConnection())
+        {
+            String sql = "SELECT count(*) FROM agent WHERE flockUserid=?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            {
+                preparedStatement.setString(1, userId);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next())
+                {
+                    return "1".equals(resultSet.getString(1));
+                }
+                System.out.println(userId + "exists");
+            }
+        }
+        return false;
     }
 
     public void getCompanyServiceParams(String companyId, String serviceId)
@@ -96,11 +118,11 @@ public class DBOperations
 
     public void getSaveFacebookMessage(String companyId, String serviceId, String sender_id, String message)
     {
+
     }
 
-    public List<String> getCustomerList() throws SQLException {
-        //todo
-        return null;
+    public List<String> getQueuedCustomerList() throws SQLException {
+        return getListFromDB("SELECT * FROM customer");
     }
 
     public static class DB

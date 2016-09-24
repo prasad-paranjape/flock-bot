@@ -28,6 +28,7 @@ public class InitiateChat extends HttpServlet {
         String userId = request.getParameter("userId");
         String customerId = request.getParameter("customerId");
 
+        //TODO  
         int mapId = DBOperations.initiateChat(userId, customerId);
         DBOperations.getConversations(mapId);
         return ;

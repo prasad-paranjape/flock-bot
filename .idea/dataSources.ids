@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="AWS" uuid="a69a7591-98d5-432e-aa5e-d2111bf8dab5">
+    <database-info product="MySQL" version="5.5.52-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="Flockathon"/>
+    <table name="agent" schema="" catalog="Flockathon" type="TABLE">
+      <column name="agentId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="flockUserId" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="flockUserToken" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="flockName" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="lastAction" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="companyId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="agentId"/>
+      <foreign-key name="agents_company_companyId_fk" columns="companyId" ref-table="company" ref-schema="" ref-catalog="Flockathon" ref-columns="companyId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="Cannedresponse_agents_agentId_fk" table="cannedResponse" schema="" catalog="Flockathon" columns="agentId"/>
+      <exported-key name="messageMap_agents_agentId_fk" table="messageMap" schema="" catalog="Flockathon" columns="agentId"/>
+      <index name="agents_company_companyId_fk" unique="false" columns="companyId"/>
+    </table>
+    <table name="cannedResponse" schema="" catalog="Flockathon" type="TABLE">
+      <column name="agentId" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="responseId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="title" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="content" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="responseId"/>
+      <foreign-key name="Cannedresponse_agents_agentId_fk" columns="agentId" ref-table="agent" ref-schema="" ref-catalog="Flockathon" ref-columns="agentId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="Cannedresponse_agents_agentId_fk" unique="false" columns="agentId"/>
+    </table>
+    <table name="company" schema="" catalog="Flockathon" type="TABLE">
+      <column name="companyId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="companyName" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="flockTeamId" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="facebookTeamId" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="twitterTeamId" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="companyId"/>
+      <exported-key name="agents_company_companyId_fk" table="agent" schema="" catalog="Flockathon" columns="companyId"/>
+      <index name="company_companyName_uindex" unique="true" columns="companyName"/>
+    </table>
+    <table name="customer" schema="" catalog="Flockathon" type="TABLE">
+      <column name="customerId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="serviceId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="customerId"/>
+      <foreign-key name="customer_service_serviceId_fk" columns="serviceId" ref-table="service" ref-schema="" ref-catalog="Flockathon" ref-columns="serviceId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="messageMap_customer_customerid_fk" table="messageMap" schema="" catalog="Flockathon" columns="customerId"/>
+      <exported-key name="serviceFacebook_customer_customerid_fk" table="serviceFacebook" schema="" catalog="Flockathon" columns="facebookCustomerId"/>
+      <exported-key name="serviceTwitter_customer_customerid_fk" table="serviceTwitter" schema="" catalog="Flockathon" columns="twitterCustomerId"/>
+      <index name="customer_service_serviceId_fk" unique="false" columns="serviceId"/>
+    </table>
+    <table name="messageData" schema="" catalog="Flockathon" type="TABLE">
+      <column name="messageMapId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="timestamp" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="msg" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="inoutstatus" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+    </table>
+    <table name="messageMap" schema="" catalog="Flockathon" type="TABLE">
+      <column name="customerId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="conversationId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="agentId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="conversationId"/>
+      <foreign-key name="messageMap_agents_agentId_fk" columns="agentId" ref-table="agent" ref-schema="" ref-catalog="Flockathon" ref-columns="agentId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="messageMap_customer_customerid_fk" columns="customerId" ref-table="customer" ref-schema="" ref-catalog="Flockathon" ref-columns="customerId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="messageMap_agents_agentId_fk" unique="false" columns="agentId"/>
+      <index name="messageMap_customer_customerid_fk" unique="false" columns="customerId"/>
+    </table>
+    <table name="service" schema="" catalog="Flockathon" type="TABLE">
+      <column name="serviceId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="serviceName" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="serviceId"/>
+      <exported-key name="customer_service_serviceId_fk" table="customer" schema="" catalog="Flockathon" columns="serviceId"/>
+      <index name="service_serviceName_uindex" unique="true" columns="serviceName"/>
+    </table>
+    <table name="serviceFacebook" schema="" catalog="Flockathon" type="TABLE">
+      <column name="facebookCustomerId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="senderId" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="facebookCustomerId"/>
+      <foreign-key name="serviceFacebook_customer_customerid_fk" columns="facebookCustomerId" ref-table="customer" ref-schema="" ref-catalog="Flockathon" ref-columns="customerId" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="serviceTwitter" schema="" catalog="Flockathon" type="TABLE">
+      <column name="twitterCustomerId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="senderId" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="twitterCustomerId"/>
+      <foreign-key name="serviceTwitter_customer_customerid_fk" columns="twitterCustomerId" ref-table="customer" ref-schema="" ref-catalog="Flockathon" ref-columns="customerId" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+  </data-source>
+</component>

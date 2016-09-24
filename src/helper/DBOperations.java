@@ -1,5 +1,6 @@
 package helper;
 
+import core.AppServiceObj;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -47,13 +48,26 @@ public class DBOperations
         }
     }
 
+    public void saveAppService(AppServiceObj appServiceObj) throws SQLException {
+
+        Connection connection = DBOperations.DB.getConnection();
+        String sql="insert into agent (flock_userid, flock_usertoken, flock_name, companyId) values(?,?,?,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1,appServiceObj.userId);
+        preparedStatement.setString(2,appServiceObj.userToken);
+        preparedStatement.setString(3,appServiceObj.name);
+        preparedStatement.setInt(4, 1);
+        int i = preparedStatement.executeUpdate();
+        System.out.println(i + " records inserted");
+    }
+
     public static class DB
     {
         private static final Logger LOGGER = Logger.getLogger(DB.class.getName());
         private static Connection c = null;
         public static final String jdbcDriver = "com.mysql.jdbc.Driver";
         public static final String dbUrl = "jdbc:mysql://localhost:3306/Flockathon";
-        public static String DBUSER = "root", DBPASS = "";
+        public static String DBUSER = "root", DBPASS = "bruteforce";
 
         public static Connection getConnection()
         {

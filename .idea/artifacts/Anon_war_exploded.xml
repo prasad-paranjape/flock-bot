@@ -12,6 +12,9 @@
           <element id="library" level="project" name="mysql-connector-java-5.1.34" />
           <element id="library" level="project" name="gson-2.2" />
           <element id="library" level="project" name="jsch-0.1.54" />
+          <element id="library" level="project" name="tools" />
+          <element id="library" level="project" name="servlet-api" />
+          <element id="library" level="project" name="flockapiSDK-1.0.0.5" />
         </element>
       </element>
     </root>

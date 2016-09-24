@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="MySQL - Flockathon@localhost" uuid="f4a7a027-8c69-464b-a1e2-9982b3796a33">
-      <database-info product="MySQL" version="5.5.52-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+    <data-source name="AWS" uuid="a69a7591-98d5-432e-aa5e-d2111bf8dab5">
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
-      <introspection-scope>Flockathon:</introspection-scope>
-      <resolve-scope>Flockathon:</resolve-scope>
+      <schema-pattern>Flockathon.*</schema-pattern>
+      <default-schemas>Flockathon.*</default-schemas>
       <ssh-properties>
         <enabled>true</enabled>
         <proxy-host>52.25.85.77</proxy-host>
@@ -20,16 +15,6 @@
         <use-password>false</use-password>
         <private-key-path>$USER_HOME$/Downloads/floackathon.pem</private-key-path>
       </ssh-properties>
-    </data-source>
-    <data-source name="MySQL - @localhost" uuid="48a73fb4-dfa5-4b13-b676-23333ea33a76">
-      <database-info product="MySQL" version="5.7.11" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper" />
-      <secret-storage>master_key</secret-storage>
-      <introspection-scope>:</introspection-scope>
-      <resolve-scope>:</resolve-scope>
     </data-source>
   </component>
 </project>

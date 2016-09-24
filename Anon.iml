@@ -20,10 +20,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.0.M12" level="application_server_libraries" />
     <orderEntry type="library" name="log4j-1.2.17" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.34" level="project" />
     <orderEntry type="library" name="gson-2.2" level="project" />
     <orderEntry type="library" name="jsch-0.1.54" level="project" />
+    <orderEntry type="library" name="tools" level="project" />
+    <orderEntry type="library" name="servlet-api" level="project" />
+    <orderEntry type="library" name="flockapiSDK-1.0.0.5" level="project" />
   </component>
 </module>

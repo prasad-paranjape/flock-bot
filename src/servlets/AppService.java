@@ -33,6 +33,23 @@ public class AppService extends HttpServlet
     }
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
+        String body = getRequestBody(request);
+        System.out.println(body);
+        try {
+            AppServiceObj obj = new Gson().fromJson(body, AppServiceObj.class);
+            obj.save();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        ServletOutputStream out = response.getOutputStream();
+        out.print("AppService");
+
+    }
+
+    private String getRequestBody(HttpServletRequest request) throws IOException {
         System.out.println("Hitted");
         LOGGER.log(Priority.INFO, request);
         String body = null;
@@ -64,18 +81,6 @@ public class AppService extends HttpServlet
         }
 
         body = stringBuilder.toString();
-        System.out.println(body);
-        try {
-            AppServiceObj obj = new Gson().fromJson(body, AppServiceObj.class);
-            obj.save();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        ServletOutputStream out = response.getOutputStream();
-        out.print("AppService");
-
+        return body;
     }
 }

@@ -1,5 +1,7 @@
 package servlets;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -10,8 +12,10 @@ import java.io.IOException;
 /**
  * Created by moiz.p on 24/09/16.
  */
-public class Index extends HttpServlet
+public class Config extends HttpServlet
 {
+    Logger LOGGER= Logger.getLogger("Config");
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         processRequest( request,  response);
@@ -23,8 +27,10 @@ public class Index extends HttpServlet
     }
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
+//        request.
         ServletOutputStream out = response.getOutputStream();
-        out.print("Index");
+        out.print("Hi");
 
+        LOGGER.
     }
 }

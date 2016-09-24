@@ -30,8 +30,7 @@ public class Canned extends HttpServlet
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
         LOGGER.log(Priority.INFO, request);
-        ServletOutputStream out = response.getOutputStream();
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Canned.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Canned.jsp");
         requestDispatcher.forward(request,response);
 
     }

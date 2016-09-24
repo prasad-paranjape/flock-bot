@@ -17,16 +17,21 @@ public class DBOperations
         DB.closeConnection();
     }
 
-    public ArrayList<ArrayList<String>> getArrayListFromDB(String sql) throws SQLException {
-        try (Statement st = DB.getConnection().createStatement()) {
-            try (ResultSet rs = st.executeQuery(sql)) {
+    public ArrayList<ArrayList<String>> getArrayListFromDB(String sql) throws SQLException
+    {
+        try (Statement st = DB.getConnection().createStatement())
+        {
+            try (ResultSet rs = st.executeQuery(sql))
+            {
                 ResultSetMetaData rsmd = rs.getMetaData();
                 int cols = rsmd.getColumnCount();
                 ArrayList<ArrayList<String>> list = new ArrayList<>();
-                while (rs.next()) {
+                while (rs.next())
+                {
                     ArrayList<String> row = new ArrayList<>();
 
-                    for (int i = 1; i <= cols; i++) {
+                    for (int i = 1; i <= cols; i++)
+                    {
                         row.add(rs.getString(i));
                     }
                     list.add(row);
@@ -37,11 +42,15 @@ public class DBOperations
         }
     }
 
-    public ArrayList<String> getListFromDB(String sql) throws SQLException {
-        try (Statement st = DB.getConnection().createStatement()) {
-            try (ResultSet rs = st.executeQuery(sql)) {
+    public ArrayList<String> getListFromDB(String sql) throws SQLException
+    {
+        try (Statement st = DB.getConnection().createStatement())
+        {
+            try (ResultSet rs = st.executeQuery(sql))
+            {
                 ArrayList<String> list = new ArrayList<>();
-                while (rs.next()) {
+                while (rs.next())
+                {
                     list.add(rs.getString(1));
                 }
                 return list;
@@ -49,17 +58,44 @@ public class DBOperations
         }
     }
 
-    public void saveAppService(AppServiceObj appServiceObj) throws SQLException {
+    public void saveAppService(AppServiceObj appServiceObj) throws SQLException
+    {
+        try (Connection connection = DBOperations.DB.getConnection())
+        {
+            String sql = "insert into agent (flockUserid, flockUsertoken, flockName, companyId) values(?,?,?,?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            {
+                preparedStatement.setString(1, appServiceObj.userId);
+                preparedStatement.setString(2, appServiceObj.userToken);
+                preparedStatement.setString(3, appServiceObj.name);
+                preparedStatement.setInt(4, 1);
+                int i = preparedStatement.executeUpdate();
+                System.out.println(i + " records inserted");
+            }
+        }
+    }
 
-        Connection connection = DBOperations.DB.getConnection();
-        String sql="insert into agent (flockUserid, flockUsertoken, flockName, companyId) values(?,?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,appServiceObj.userId);
-        preparedStatement.setString(2,appServiceObj.userToken);
-        preparedStatement.setString(3,appServiceObj.name);
-        preparedStatement.setInt(4, 1);
-        int i = preparedStatement.executeUpdate();
-        System.out.println(i + " records inserted");
+    public void getCompanyServiceParams(String companyId, String serviceId)
+    {
+        //TODO if required
+    }
+
+    public void uninstallAppService(String userId) throws SQLException
+    {
+        try (Connection connection = DBOperations.DB.getConnection())
+        {
+            String sql = "UPDATE agent SET status='InActive' WHERE flockUserid= ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            {
+                preparedStatement.setString(1, userId);
+                int i = preparedStatement.executeUpdate();
+                System.out.println(i + " record updated");
+            }
+        }
+    }
+
+    public void getSaveFacebookMessage(String companyId, String serviceId, String sender_id, String message)
+    {
     }
 
     public List<String> getCustomerList() throws SQLException {

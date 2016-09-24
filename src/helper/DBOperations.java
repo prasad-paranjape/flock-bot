@@ -61,6 +61,10 @@ public class DBOperations
         System.out.println(i + " records inserted");
     }
 
+    public void getCompanyServiceParams(String companyId, String serviceId)
+    {
+    }
+
     public static class DB
     {
         private static final Logger LOGGER = Logger.getLogger(DB.class.getName());

@@ -28,6 +28,7 @@ public class AppService extends HttpServlet
     }
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
+
         LOGGER.log(Priority.INFO, request);
 
         ServletOutputStream out = response.getOutputStream();

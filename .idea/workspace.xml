@@ -2,24 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="acf9b427-9b7b-4f01-9d94-d1132bfdf4ee" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Anon_war/Anon_war.war" afterPath="$PROJECT_DIR$/out/artifacts/Anon_war/Anon_war.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/AppService.class" afterPath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/AppService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/Canned.class" afterPath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/Canned.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/Config.class" afterPath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/Config.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/Index.class" afterPath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/Index.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/QC.class" afterPath="$PROJECT_DIR$/out/artifacts/Anon_war_exploded/WEB-INF/classes/servlets/QC.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Anon/servlets/AppService.class" afterPath="$PROJECT_DIR$/out/production/Anon/servlets/AppService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Anon/servlets/Canned.class" afterPath="$PROJECT_DIR$/out/production/Anon/servlets/Canned.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Anon/servlets/Config.class" afterPath="$PROJECT_DIR$/out/production/Anon/servlets/Config.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Anon/servlets/Index.class" afterPath="$PROJECT_DIR$/out/production/Anon/servlets/Index.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Anon/servlets/QC.class" afterPath="$PROJECT_DIR$/out/production/Anon/servlets/QC.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/log4j-1.2.17.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/log4j_1_2_17.xml" afterPath="$PROJECT_DIR$/.idea/libraries/log4j_1_2_17.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/AppService.java" afterPath="$PROJECT_DIR$/src/Servlets/AppService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/Canned.java" afterPath="$PROJECT_DIR$/src/Servlets/Canned.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/Config.java" afterPath="$PROJECT_DIR$/src/Servlets/Config.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/Index.java" afterPath="$PROJECT_DIR$/src/Servlets/Index.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/QC.java" afterPath="$PROJECT_DIR$/src/Servlets/QC.java" />
     </list>
     <ignored path="Anon.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -74,20 +60,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AppService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/servlets/AppService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5067568">
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Canned.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Canned.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/servlets/Canned.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9121622">
+            <state vertical-scroll-proportion="0.0">
               <caret line="35" column="1" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
               <folding />
             </state>
@@ -112,10 +98,11 @@
         <option value="$PROJECT_DIR$/src/flockapiSDK-master/src/main/java/co/flock/www/model/messages/Attachments/Attachment.java" />
         <option value="$USER_HOME$/Downloads/flockapiSDK-master/src/main/java/co/flock/www/model/messages/Attachments/Attachment.java" />
         <option value="$PROJECT_DIR$/src/servlets/Config.java" />
-        <option value="$PROJECT_DIR$/src/servlets/AppService.java" />
         <option value="$PROJECT_DIR$/src/servlets/Index.java" />
         <option value="$PROJECT_DIR$/src/servlets/QC.java" />
         <option value="$PROJECT_DIR$/src/servlets/Canned.java" />
+        <option value="$PROJECT_DIR$/src/servlets/AppService.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -175,15 +162,13 @@
               <option name="myItemId" value="Anon" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Anon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Anon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="Tomcat 9.0.0.M12" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -192,12 +177,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Anon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -207,14 +188,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Anon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -231,8 +204,18 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="servlets" />
+              <option name="myItemId" value="Anon" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Anon" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -252,9 +235,15 @@
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.1268116" />
     <property name="project.structure.side.proportion" value="0.43847874" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../IdeaProjects2/DevDesk/lib/New/log4j/log4j/1.2.17/log4j-1.2.17.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/log4j-1.2.17.jar!/" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
@@ -705,6 +694,24 @@
       <predefined_log_file id="Tomcat Host Manager" enabled="false" />
       <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="51484" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
@@ -740,12 +747,19 @@
       <created>1474703188917</created>
       <option name="number" value="Default" />
       <updated>1474703188917</updated>
-      <workItem from="1474703196544" duration="3208000" />
+      <workItem from="1474703196544" duration="4954000" />
     </task>
+    <task id="LOCAL-00001" summary="Added logging">
+      <created>1474708428136</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1474708428136</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3208000" />
+    <option name="totallyTimeSpent" value="4954000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="6" />
@@ -770,7 +784,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39914772" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -781,6 +795,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added logging" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added logging" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1017,18 +1035,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/servlets/AppService.java">
+    <entry file="file://$PROJECT_DIR$/src/servlets/Canned.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <caret line="35" column="1" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/servlets/Canned.java">
+    <entry file="file://$PROJECT_DIR$/src/servlets/AppService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9121622">
-          <caret line="35" column="1" selection-start-line="35" selection-start-column="1" selection-end-line="35" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.5067568">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>

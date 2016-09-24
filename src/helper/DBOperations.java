@@ -42,7 +42,7 @@ public class DBOperations
         }
     }
 
-    public ArrayList<String> getListFromDB(String sql) throws SQLException
+    public static ArrayList<String> getListFromDB(String sql) throws SQLException
     {
         try (Statement st = DB.getConnection().createStatement())
         {
@@ -121,7 +121,7 @@ public class DBOperations
 
     }
 
-    public List<String> getQueuedCustomerList() throws SQLException {
+    public static List<String> getQueuedCustomerList() throws SQLException {
         return getListFromDB("SELECT * FROM customer");
     }
 

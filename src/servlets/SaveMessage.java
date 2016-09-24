@@ -37,7 +37,7 @@ public class SaveMessage extends HttpServlet
         String sender_id = request.getParameter("sender_id");
         String message = request.getParameter("message");
 
-        db.getSaveFacebookMessage(companyId,serviceId);
+//        db.getSaveFacebookMessage(companyId,serviceId);
 
 
         ServletOutputStream out = response.getOutputStream();

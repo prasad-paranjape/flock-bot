@@ -15,6 +15,7 @@
           <element id="library" level="project" name="tools" />
           <element id="library" level="project" name="servlet-api" />
           <element id="library" level="project" name="flockapiSDK-1.0.0.5" />
+          <element id="library" level="project" name="taglibs-standard-impl-1.2.5" />
         </element>
       </element>
     </root>

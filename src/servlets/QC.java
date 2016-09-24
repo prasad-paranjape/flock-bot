@@ -1,5 +1,9 @@
 package servlets;
 
+import com.google.gson.Gson;
+import core.AppServiceObj;
+import core.LauncherEventObj;
+import helper.Util;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -29,6 +33,10 @@ public class QC extends HttpServlet
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
         LOGGER.log(Priority.INFO, request);
+        String jsonParams = java.net.URLDecoder.decode(request.getParameter("flockEvent"));
+//        String body = Util.getRequestBody(request);
+        LauncherEventObj obj = new Gson().fromJson(jsonParams, LauncherEventObj.class);
+
         ServletOutputStream out = response.getOutputStream();
         out.print("QC");
 

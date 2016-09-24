@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by moiz.p on 24/09/16.
@@ -59,6 +60,11 @@ public class DBOperations
         preparedStatement.setInt(4, 1);
         int i = preparedStatement.executeUpdate();
         System.out.println(i + " records inserted");
+    }
+
+    public List<String> getCustomerList() throws SQLException {
+        //todo
+        return null;
     }
 
     public static class DB

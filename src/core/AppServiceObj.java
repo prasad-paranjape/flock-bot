@@ -8,5 +8,9 @@ public class AppServiceObj {
     private String name;
     private String userId;
 
-    
+    public void save()
+    {
+
+    }
+
 }

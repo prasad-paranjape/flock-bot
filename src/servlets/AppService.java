@@ -1,5 +1,7 @@
 package servlets;
 
+import com.google.gson.Gson;
+import core.AppServiceObj;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -63,6 +65,7 @@ public class AppService extends HttpServlet
 
         body = stringBuilder.toString();
         System.out.println(body);
+        AppServiceObj obj = new Gson().fromJson(body, AppServiceObj.class);
 
         ServletOutputStream out = response.getOutputStream();
         out.print("AppService");

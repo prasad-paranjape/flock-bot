@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="Anon:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/Anon_war</output-path>
+    <root id="archive" name="Anon_war.war">
+      <element id="artifact" artifact-name="Anon:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="log4j-1.2.17" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

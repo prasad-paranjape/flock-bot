@@ -2,6 +2,7 @@ package servlets;
 
 import com.google.gson.Gson;
 import core.AppServiceObj;
+import helper.AppServices;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -37,11 +38,17 @@ public class AppService extends HttpServlet
         System.out.println(body);
         try {
             AppServiceObj obj = new Gson().fromJson(body, AppServiceObj.class);
-            obj.save();
+            if(obj.getName().equals(AppServices.APP_INSTALL)) {
+                obj.save();
+            }
+            else if(obj.getName().equals(AppServices.APP_UNINSTALL))
+            {
+                obj.remove();
+            }
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
 
         ServletOutputStream out = response.getOutputStream();

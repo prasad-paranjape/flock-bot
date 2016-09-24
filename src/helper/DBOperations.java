@@ -51,7 +51,7 @@ public class DBOperations
     public void saveAppService(AppServiceObj appServiceObj) throws SQLException {
 
         Connection connection = DBOperations.DB.getConnection();
-        String sql="insert into agent (flock_userid, flock_usertoken, flock_name, companyId) values(?,?,?,?)";
+        String sql="insert into agent (flockUserid, flockUsertoken, flockName, companyId) values(?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1,appServiceObj.userId);
         preparedStatement.setString(2,appServiceObj.userToken);

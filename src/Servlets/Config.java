@@ -1,6 +1,7 @@
 package servlets;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -31,6 +32,6 @@ public class Config extends HttpServlet
         ServletOutputStream out = response.getOutputStream();
         out.print("Hi");
 
-        LOGGER.
+        LOGGER.log(Priority.DEBUG,request);
     }
 }

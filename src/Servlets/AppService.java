@@ -1,5 +1,8 @@
 package servlets;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +15,8 @@ import java.io.IOException;
  */
 public class AppService extends HttpServlet
 {
+    private static final Logger LOGGER = Logger.getLogger(AppService.class);
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         processRequest( request,  response);
@@ -23,6 +28,8 @@ public class AppService extends HttpServlet
     }
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
+        LOGGER.log(Priority.INFO, request);
+
         ServletOutputStream out = response.getOutputStream();
         out.print("AppService");
 

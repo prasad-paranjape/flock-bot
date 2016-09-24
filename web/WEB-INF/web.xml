@@ -47,4 +47,12 @@
         <servlet-name>StartChat</servlet-name>
         <url-pattern>/startchat</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>SaveMessage</servlet-name>
+        <servlet-class>servlets.SaveMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SaveMessage</servlet-name>
+        <url-pattern>/newMessage</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -116,13 +116,33 @@ public class DBOperations
         }
     }
 
-    public static void getSaveFacebookMessage(String companyId, String serviceId, String sender_id, String message)
+    public static boolean saveFacebookMessage(String companyId, String serviceName, String sender_id, String name, String message)
     {
+//        checkIfChatting(sender_id,serviceName,companyId);
 
+        return true;
     }
 
     public static List<String> getQueuedCustomerList() throws SQLException {
-        return getListFromDB("SELECT * FROM customer");
+        return getListFromDB("SELECT customerId, serviceId, customerName FROM customer WHERE customerId IN (SELECT customerId FROM messageMap WHERE status='Not Started')");
+    }
+
+    public static ArrayList<String> initiateChat(String agentFlockId, String customerId) throws SQLException
+    {
+        String mapId=getListFromDB("SELECT mapId FROM messageMap WHERE customerId="+customerId).get(0);
+        updateMapStatus(mapId,"Chatting");
+        return getUnreadChats(mapId);
+    }
+
+    private static ArrayList<String> getUnreadChats(String mapId) throws SQLException
+    {
+        return getListFromDB("SELECT msg FROM messageData WHERE messageMapId="+mapId);
+    }
+
+    private static void updateMapStatus(String mapId, String status) throws SQLException
+    {
+        String sql="UPDATE messageMap SET status='"+status+"' WHERE mapId="+mapId;
+        DB.executeNonQuery(sql);
     }
 
     public static class DB

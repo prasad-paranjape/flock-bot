@@ -1,5 +1,10 @@
 package helper;
 
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.HttpResponse;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,5 +46,17 @@ public class Util {
 
         body = stringBuilder.toString();
         return body;
+    }
+    public static boolean sendRequest(String endpoint) throws IOException {
+        DefaultHttpClient client = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(endpoint);
+        HttpResponse response = (HttpResponse) client.execute(httpGet);
+
+        int status = response.getStatusLine().getStatusCode();
+        if (status != 200) {
+            System.out.println("http get call failed");
+            return false;
+        }
+        return true;
     }
 }

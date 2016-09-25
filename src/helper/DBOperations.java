@@ -234,9 +234,22 @@ public class DBOperations
         return false;
     }
 
+    public static String getCustomerSenderId(String agentFlockId) throws SQLException
+    {
+        String id = getAgentIdFromflockId(agentFlockId);
+        String sql="SELECT customerId from messageMap WHERE agentId="+id;
+        String cid = getListFromDB(sql).get(0);
+        return getFacebookSenderId(cid);
+    }
     private static String getFacebookCustomerId(String sender_id) throws SQLException
     {
         ArrayList<String> listFromDB = getListFromDB("SELECT facebookCustomerId FROM customerFacebook WHERE senderId='" + sender_id + "'");
+        return listFromDB.size()>0?listFromDB.get(0):null;
+    }
+
+    private static String getFacebookSenderId(String customer_id) throws SQLException
+    {
+        ArrayList<String> listFromDB = getListFromDB("SELECT senderId FROM customerFacebook WHERE facebookCustomerId=" + customer_id );
         return listFromDB.size()>0?listFromDB.get(0):null;
     }
 

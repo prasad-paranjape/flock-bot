@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class SaveMessage extends HttpServlet
 {
     private static final Logger LOGGER = Logger.getLogger(SaveMessage.class);
-    String homeUrl = "https://shashwatkumar.com";
+    String homeUrl = "http://52.25.85.77";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {

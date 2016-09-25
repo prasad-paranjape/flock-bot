@@ -283,7 +283,7 @@ public class DBOperations
         private static Connection c = null;
         public static final String jdbcDriver = "com.mysql.jdbc.Driver";
         public static final String dbUrl = "jdbc:mysql://localhost:3306/Flockathon";
-        public static String DBUSER = "root", DBPASS = "root";
+        public static String DBUSER = "root", DBPASS = "bruteforce";
 
         public static Connection getConnection()
         {

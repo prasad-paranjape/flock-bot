@@ -38,6 +38,9 @@
             jQuery(this).addClass("done");
         });
     }
+    setTimeout(function(){
+        window.location.reload();
+    },5000);
 </script>
 </body>
 

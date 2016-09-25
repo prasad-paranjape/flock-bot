@@ -47,7 +47,8 @@ public class SaveMessage extends HttpServlet
         {
             return;
         }
-        try {
+        try
+        {
             if (DBOperations.saveFacebookMessage(companyId, serviceName, sender_id, name, message))
             {
                 try
@@ -58,7 +59,8 @@ public class SaveMessage extends HttpServlet
                     e.printStackTrace();
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
 

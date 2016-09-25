@@ -47,15 +47,21 @@ public class SaveMessage extends HttpServlet
         {
             return;
         }
-        if (DBOperations.saveFacebookMessage(companyId, serviceName, sender_id, name, message))
+        try
         {
-            try
+            if (DBOperations.saveFacebookMessage(companyId, serviceName, sender_id, name, message))
             {
-                acknowledgeFacebookSave(companyId, serviceName, sender_id, "Acknowledged");
-            } catch (SQLException e)
-            {
-                e.printStackTrace();
+                try
+                {
+                    acknowledgeFacebookSave(companyId, serviceName, sender_id, "Acknowledged");
+                } catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
             }
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
         }
 
 

@@ -15,12 +15,15 @@
     <style>
         li:before{
             content: " ";
+
         }
         li{
           margin: 8px 0;
             padding: 5px;
             border: 1px solid;
             border-radius:2px;
+            background-color: #f4f4f4;
+            width: 75%;
         }
         body{
             font-size: 1.2em;
@@ -31,8 +34,8 @@
 
 <ul>
 <c:forEach items="${requestScope.customerList}" var="customer">
-    <img width="10" height="10" src="https://www.google.co.in/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwj-ycOE36nPAhUMuI8KHePvCfQQjRwIBw&url=https%3A%2F%2Fwww.iconfinder.com%2Fsearch%2F%3Fq%3Duser&psig=AFQjCNEKoAkS3qkkGDyAeQfz6y2jq48udw&ust=1474866239694336"/>&nbsp;&nbsp;
-    <li><a href="#" data-url="${customer}" onclick="callback(this)">User:${customer}</a></li>
+
+    <li><img width="20" height="20" src="https://web.flock.co/client_base/images/icon-add-person.svg"/>&nbsp;&nbsp;<a href="#" data-url="${customer}" onclick="callback(this)">User:${customer}</a></li>
 </c:forEach>
 </ul>
 

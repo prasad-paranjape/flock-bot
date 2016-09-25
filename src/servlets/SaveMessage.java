@@ -51,12 +51,7 @@ public class SaveMessage extends HttpServlet
         String sender_id = request.getParameter("sender_id");
         String name = "";//request.getParameter("name");
         String message = request.getParameter("message");
-        String facebookCustomerId = DBOperations.getFacebookCustomerId(sender_id);
 
-        String flockIdFromAgentId = DBOperations.getAgentIdFromCustomerId(facebookCustomerId);
-        ArrayList array = new ArrayList<String>();
-        array.add(message);
-        new Bot().sendMessage(flockIdFromAgentId, array);
         if (serviceName == null || sender_id == null || companyId == null || message == null)
         {
             return;
@@ -65,6 +60,12 @@ public class SaveMessage extends HttpServlet
         {
             if (DBOperations.saveFacebookMessage(companyId, serviceName, sender_id, name, message))
             {
+                String facebookCustomerId = DBOperations.getFacebookCustomerId(sender_id);
+
+                String flockIdFromAgentId = DBOperations.getAgentIdFromCustomerId(facebookCustomerId);
+                ArrayList array = new ArrayList<String>();
+                array.add(message);
+                new Bot().sendMessage(flockIdFromAgentId, array);
 //                try
 //                {
 //                    Util.acknowledgeFacebookSave(companyId, serviceName, sender_id, "Acknowledged");
@@ -73,6 +74,7 @@ public class SaveMessage extends HttpServlet
 //                    e.printStackTrace();
 //                }
             }
+
         } catch (SQLException e)
         {
             e.printStackTrace();

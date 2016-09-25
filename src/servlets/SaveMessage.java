@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by moiz.p on 24/09/16.
@@ -42,7 +43,10 @@ public class SaveMessage extends HttpServlet
         String sender_id = request.getParameter("sender_id");
         String name = "";//request.getParameter("name");
         String message = request.getParameter("message");
-
+        if (serviceName == null || sender_id == null || companyId == null || message == null)
+        {
+            return;
+        }
         if (DBOperations.saveFacebookMessage(companyId, serviceName, sender_id, name, message))
         {
             try
@@ -69,6 +73,7 @@ public class SaveMessage extends HttpServlet
 
     private String getCompanyFacebookToken(String companyId) throws SQLException
     {
-        return DBOperations.getListFromDB("SELECT token FROM serviceFacebook WHERE companyId=" + companyId).get(0);
+        ArrayList<String> listFromDB = DBOperations.getListFromDB("SELECT token FROM serviceFacebook WHERE companyId=" + companyId);
+        return listFromDB.size()>0?listFromDB.get(0):"";
     }
 }

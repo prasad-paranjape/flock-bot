@@ -116,33 +116,65 @@ public class DBOperations
         }
     }
 
-    public static boolean saveFacebookMessage(String companyId, String serviceName, String sender_id, String name, String message)
+    public static boolean saveFacebookMessage(String companyId, String serviceName, String sender_id, String name, String message) throws SQLException
     {
-//        checkIfChatting(sender_id,serviceName,companyId);
+        isChatting(sender_id, serviceName, companyId);
 
         return true;
     }
 
-    public static List<String> getQueuedCustomerList() throws SQLException {
+    private static boolean isChatting(String sender_id, String serviceName, String companyId) throws SQLException
+    {
+        if("facebook".equals(serviceName)){
+            String customerId=getFacebookCustomerId(sender_id);
+            if(customerId==null){
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private static String getFacebookCustomerId(String sender_id) throws SQLException
+    {
+        ArrayList<String> listFromDB = getListFromDB("SELECT facebookCustomerId FROM customerFacebook WHERE senderId='" + sender_id + "'");
+        return listFromDB.size()>0?listFromDB.get(0):null;
+    }
+
+    public static List<String> getQueuedCustomerList() throws SQLException
+    {
         return getListFromDB("SELECT customerId, serviceId, customerName FROM customer WHERE customerId IN (SELECT customerId FROM messageMap WHERE status='Not Started')");
     }
 
     public static ArrayList<String> initiateChat(String agentFlockId, String customerId) throws SQLException
     {
-        String mapId=getListFromDB("SELECT mapId FROM messageMap WHERE customerId="+customerId).get(0);
-        updateMapStatus(mapId,"Chatting");
+        ArrayList<String> listFromDB = getListFromDB("SELECT mapId FROM messageMap WHERE status='Not Started' AND  customerId=" + customerId);
+        String mapId = (listFromDB.size() > 0) ? listFromDB.get(0) : null;
+        if (mapId == null)
+        {
+            return new ArrayList<>();
+        }
+
+        updateMapStatus(mapId, agentFlockId, "Chatting");
         return getUnreadChats(mapId);
     }
 
     private static ArrayList<String> getUnreadChats(String mapId) throws SQLException
     {
-        return getListFromDB("SELECT msg FROM messageData WHERE messageMapId="+mapId);
+        return getListFromDB("SELECT msg FROM messageData WHERE messageMapId=" + mapId);
     }
 
-    private static void updateMapStatus(String mapId, String status) throws SQLException
+    private static void updateMapStatus(String mapId, String agentFlockId, String status) throws SQLException
     {
-        String sql="UPDATE messageMap SET status='"+status+"' WHERE mapId="+mapId;
+        String agentId=getAgentIdFromflockId(agentFlockId);
+
+        String sql = "UPDATE messageMap SET status='" + status + "' ,  WHERE mapId=" + mapId;
         DB.executeNonQuery(sql);
+    }
+
+    private static String getAgentIdFromflockId(String agentFlockId) throws SQLException
+    {
+        ArrayList<String> listFromDB = getListFromDB("SELECT agentId FROM agent WHERE flockUserId='" + agentFlockId + "'");
+        return listFromDB.size()>0?listFromDB.get(0):null;
     }
 
     public static class DB
@@ -151,7 +183,7 @@ public class DBOperations
         private static Connection c = null;
         public static final String jdbcDriver = "com.mysql.jdbc.Driver";
         public static final String dbUrl = "jdbc:mysql://localhost:3306/Flockathon";
-        public static String DBUSER = "root", DBPASS = "bruteforce";
+        public static String DBUSER = "root", DBPASS = "root";
 
         public static Connection getConnection()
         {

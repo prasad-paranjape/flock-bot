@@ -1,9 +1,10 @@
 package helper;
 
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.HttpResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -15,7 +16,8 @@ import java.io.InputStreamReader;
  * Created by shashwat.ku on 25/9/16.
  */
 public class Util {
-    public static String getRequestBody(HttpServletRequest request) throws IOException {
+    public static String getRequestBody(HttpServletRequest request) throws IOException
+    {
         String body = null;
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
@@ -48,7 +50,7 @@ public class Util {
         return body;
     }
     public static boolean sendRequest(String endpoint) throws IOException {
-        DefaultHttpClient client = new DefaultHttpClient();
+        HttpClient client = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(endpoint);
         HttpResponse response = (HttpResponse) client.execute(httpGet);
 

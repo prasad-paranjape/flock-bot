@@ -40,7 +40,7 @@ public class AppService extends HttpServlet
             }
             else if(obj.getName().equals(AppServices.APP_UNINSTALL))
             {
-//                obj.remove();
+                obj.remove();
             }
         }
         catch (Exception e)

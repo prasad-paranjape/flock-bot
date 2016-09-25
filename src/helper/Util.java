@@ -4,6 +4,9 @@ import core.Bot;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -53,7 +56,7 @@ public class Util {
         return body;
     }
     public static boolean sendRequest(String endpoint) throws IOException {
-        DefaultHttpClient client = new DefaultHttpClient();
+        HttpClient client = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(endpoint);
         HttpResponse response = (HttpResponse) client.execute(httpGet);
 

@@ -17,5 +17,12 @@ public enum AppServices {
                 {
                     return "app.uninstall";
                 }
+            },
+    CHAT_RECEIVE
+            {
+                public String toString()
+                {
+                    return "chat.receiveMessage";
+                }
             }
 }

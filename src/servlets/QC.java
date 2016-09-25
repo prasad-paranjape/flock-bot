@@ -41,13 +41,18 @@ public class QC extends HttpServlet
 //        String body = Util.getRequestBody(request);
         LauncherEventObj obj = new Gson().fromJson(jsonParams, LauncherEventObj.class);
 //        try {
-//            List<String> customerList = DBOperations.getQueuedCustomerList();
-            List<String> customerList = new ArrayList<>();
-            customerList.add("1");
+        List<String> customerList = null;
+        try {
+            customerList = DBOperations.getQueuedCustomerList();
             request.setAttribute("customerList", customerList);
             StringBuilder params = new StringBuilder().append("userId=" + obj.getUserId());
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Launcher.jsp?" + params.toString());
             requestDispatcher.forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//            List<String> customerList = new ArrayList<>();
+//            customerList.add("1");
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }

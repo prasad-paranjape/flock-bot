@@ -60,13 +60,12 @@ public class DBOperations
 
     public static void saveAppService(AppServiceObj appServiceObj) throws SQLException
     {
-        try (Connection connection = DBOperations.DB.getConnection())
+
         {
-//            if (!agentExists(appServiceObj.userId))
-//            {
+            if (!agentExists(appServiceObj.userId))
+            {
                 String sql = "insert into agent (flockUserid, flockUsertoken, flockName, companyId) values(?,?,?,?)";
-                System.out.println(sql);
-                try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+                try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
                 {
                     preparedStatement.setString(1, appServiceObj.userId);
                     preparedStatement.setString(2, appServiceObj.userToken);
@@ -75,16 +74,15 @@ public class DBOperations
                     int i = preparedStatement.executeUpdate();
                     System.out.println(i + " records inserted");
                 }
-//            }
+            }
         }
     }
 
     private static boolean agentExists(String userId) throws SQLException
     {
-        try (Connection connection = DBOperations.DB.getConnection())
         {
             String sql = "SELECT count(*) FROM agent WHERE flockUserid=?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setString(1, userId);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -105,10 +103,10 @@ public class DBOperations
 
     public static void uninstallAppService(String userId) throws SQLException
     {
-        try (Connection connection = DBOperations.DB.getConnection())
+
         {
             String sql = "UPDATE agent SET status='InActive' WHERE flockUserid= ?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setString(1, userId);
                 int i = preparedStatement.executeUpdate();
@@ -134,17 +132,31 @@ public class DBOperations
             saveMessageData(customerId,message,1,"Not Started");
 
         }
+        else{
+            insertFirstInMap(customerId,"Not Started");
+        }
 
         return true;
     }
 
+    private static void insertFirstInMap(String customerId, String status) throws SQLException
+    {
+        String sql="INSERT INTO messageMap(customerId,status) VALUES (?,?)";
+        try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
+        {
+            preparedStatement.setInt(1, Integer.parseInt(customerId));
+            preparedStatement.setString(2, status);
+            int i = preparedStatement.executeUpdate();
+        }
+    }
+
     private static void insertFacebookCustomer(String customerId, String sender_id) throws SQLException
     {
-        try (Connection connection = DBOperations.DB.getConnection())
+
         {
             String sql="INSERT INTO customerFacebook(facebookCustomerId,senderId) VALUES (?,?)";
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setInt(1, Integer.parseInt(customerId));
                 preparedStatement.setString(2, sender_id);
@@ -155,11 +167,11 @@ public class DBOperations
 
     private static String insertCustomer(String serviceId, String name) throws SQLException
     {
-        try (Connection connection = DBOperations.DB.getConnection())
+
         {
             String sql="INSERT INTO customer(serviceId,customerName) VALUES (?,?)";
 
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setInt(1, Integer.parseInt(serviceId));
                 preparedStatement.setString(2, name);
@@ -195,10 +207,10 @@ public class DBOperations
         ArrayList<String> listFromDB = getListFromDB(sql);
         String mapid=listFromDB.size()>0?listFromDB.get(0):null;
 
-        try (Connection connection = DBOperations.DB.getConnection())
+
         {
             sql="INSERT INTO messageData(messageMapId,msg,inoutstatus) VALUES (?,?,?)";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setString(1, mapid);
                 preparedStatement.setString(2, message);
@@ -259,7 +271,7 @@ public class DBOperations
         DB.executeNonQuery(sql);
     }
 
-    private static String getAgentIdFromflockId(String agentFlockId) throws SQLException
+    public static String getAgentIdFromflockId(String agentFlockId) throws SQLException
     {
         ArrayList<String> listFromDB = getListFromDB("SELECT agentId FROM agent WHERE flockUserId='" + agentFlockId + "'");
         return listFromDB.size()>0?listFromDB.get(0):null;

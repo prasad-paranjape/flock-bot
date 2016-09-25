@@ -31,11 +31,16 @@ public class InitiateChat extends HttpServlet {
         String userId = request.getParameter("userId");
         String customerId = request.getParameter("customerId");
 
-        //            ArrayList<String> messages = DBOperations.initiateChat(userId, customerId);
-        ArrayList<String> messages = new ArrayList<>();
-        messages.add("Hi");
-        messages.add("How are you");
-        new Bot().sendMessage(userId, messages);
+        ArrayList<String> messages = null;
+        try {
+            messages = DBOperations.initiateChat(userId, customerId);
+            messages.add("Hi");
+            messages.add("How are you");
+            new Bot().sendMessage(userId, messages);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//        ArrayList<String> messages = new ArrayList<>();
         return ;
 
     }

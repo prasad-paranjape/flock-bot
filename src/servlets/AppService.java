@@ -1,8 +1,10 @@
 package servlets;
 
 import com.google.gson.Gson;
+import core.AgentReplyObj;
 import core.AppServiceObj;
 import helper.AppServices;
+import helper.DBOperations;
 import helper.Util;
 import org.apache.log4j.Logger;
 
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by moiz.p on 24/09/16.
@@ -34,13 +37,24 @@ public class AppService extends HttpServlet
         String body = Util.getRequestBody(request);
         System.out.println(body);
         try {
-            AppServiceObj obj = new Gson().fromJson(body, AppServiceObj.class);
-            if(obj.getName().equals(AppServices.APP_INSTALL.toString())) {
-                obj.save();
+            Map obj = new Gson().fromJson(body, Map.class);
+            if(obj.get("name").equals(AppServices.APP_INSTALL.toString())) {
+                AppServiceObj obj1 = new Gson().fromJson(body, AppServiceObj.class);
+                obj1.save();
             }
-            else if(obj.getName().equals(AppServices.APP_UNINSTALL))
+            else if(obj.get("name").equals(AppServices.APP_UNINSTALL.toString()))
             {
-                obj.remove();
+                AppServiceObj obj1 = new Gson().fromJson(body, AppServiceObj.class);
+                obj1.remove();
+            }
+            else if(obj.get("name").equals(AppServices.CHAT_RECEIVE.toString()))
+            {
+                AgentReplyObj obj1 = new Gson().fromJson(body, AgentReplyObj.class);
+                String agentIdFromflockId = DBOperations.getAgentIdFromflockId(obj1.getUserId());
+                String senderId = DBOperations.getCustomerSenderId(agentIdFromflockId);
+                Util.acknowledgeFacebookSave("9876", "facebook", senderId, obj1.getMessage().getText());
+
+
             }
         }
         catch (Exception e)

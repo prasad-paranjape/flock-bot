@@ -18,11 +18,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by shashwat.ku on 25/9/16.
  */
 public class Util {
+    public static String homeUrl = "https://shashwatkumar.com";
+
     public static String getRequestBody(HttpServletRequest request) throws IOException {
         String body = null;
         StringBuilder stringBuilder = new StringBuilder();
@@ -81,5 +86,18 @@ public class Util {
         HttpResponse response = client.execute(post);
         String json_string = EntityUtils.toString(response.getEntity());
         return json_string;
+    }
+
+    public static void acknowledgeFacebookSave(String companyId, String serviceName, String sender_id, String acknowledged) throws SQLException, IOException
+    {
+        String token = getCompanyFacebookToken(companyId);
+        String url = homeUrl + "/out?service_name=" + URLEncoder.encode(serviceName) + "&data[app_id]=1233409356702568&data[sender_id]=" + URLEncoder.encode(sender_id) + "&data[message]=" + URLEncoder.encode(acknowledged) + "&data[token]=" + URLEncoder.encode(token) + "&data[company_id]=" + URLEncoder.encode(companyId);
+        Util.sendRequest(url);
+    }
+
+    private static String getCompanyFacebookToken(String companyId) throws SQLException
+    {
+        ArrayList<String> listFromDB = DBOperations.getListFromDB("SELECT token FROM serviceFacebook WHERE companyId=" + companyId);
+        return listFromDB.size()>0?listFromDB.get(0):"";
     }
 }

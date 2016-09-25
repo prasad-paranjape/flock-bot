@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,15 +40,17 @@ public class QC extends HttpServlet
         String jsonParams = java.net.URLDecoder.decode(request.getParameter("flockEvent"));
 //        String body = Util.getRequestBody(request);
         LauncherEventObj obj = new Gson().fromJson(jsonParams, LauncherEventObj.class);
-        try {
-            List<String> customerList = DBOperations.getQueuedCustomerList();
+//        try {
+//            List<String> customerList = DBOperations.getQueuedCustomerList();
+            List<String> customerList = new ArrayList<>();
+            customerList.add("1");
             request.setAttribute("customerList", customerList);
             StringBuilder params = new StringBuilder().append("userId=" + obj.getUserId());
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Launcher.jsp?" + params.toString());
             requestDispatcher.forward(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
     }
 }

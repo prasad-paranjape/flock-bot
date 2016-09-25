@@ -1,5 +1,6 @@
 package servlets;
 
+import core.Bot;
 import helper.DBOperations;
 
 import javax.servlet.ServletException;
@@ -30,13 +31,11 @@ public class InitiateChat extends HttpServlet {
         String userId = request.getParameter("userId");
         String customerId = request.getParameter("customerId");
 
-        try
-        {
-            ArrayList<String> messages = DBOperations.initiateChat(userId, customerId);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        //            ArrayList<String> messages = DBOperations.initiateChat(userId, customerId);
+        ArrayList<String> messages = new ArrayList<>();
+        messages.add("Hi");
+        messages.add("How are you");
+        new Bot().sendMessage(userId, messages);
         return ;
 
     }

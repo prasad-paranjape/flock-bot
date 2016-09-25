@@ -1,9 +1,14 @@
 package helper;
 
+import core.Bot;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -58,5 +63,20 @@ public class Util {
             return false;
         }
         return true;
+    }
+
+    public static String sendJsonPostRequest(String url, String data) throws IOException {
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+
+        StringEntity se = new StringEntity(data, ContentType.APPLICATION_JSON);
+
+        post.setEntity(se);
+        post.addHeader("Content-Type", "application/json");
+        post.addHeader("X-Flock-User-Token", Bot.TOKEN);
+
+        HttpResponse response = client.execute(post);
+        String json_string = EntityUtils.toString(response.getEntity());
+        return json_string;
     }
 }

@@ -60,22 +60,13 @@ public class SaveMessage extends HttpServlet
         {
             if (DBOperations.saveFacebookMessage(companyId, serviceName, sender_id, name, message))
             {
-//                try
-//                {
-//                    Util.acknowledgeFacebookSave(companyId, serviceName, sender_id, "Acknowledged");
-//                } catch (SQLException e)
-//                {
-//                    e.printStackTrace();
-//                }
-            }
-            else
-            {
                 String facebookCustomerId = DBOperations.getFacebookCustomerId(sender_id);
 
                 String flockIdFromAgentId = DBOperations.getAgentIdFromCustomerId(facebookCustomerId);
                 ArrayList array = new ArrayList<String>();
                 array.add(message);
                 new Bot().sendMessage(flockIdFromAgentId, array);
+
             }
 
         } catch (SQLException e)

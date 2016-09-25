@@ -3,6 +3,7 @@ package servlets;
 import com.google.gson.Gson;
 import core.AgentReplyObj;
 import core.AppServiceObj;
+import core.SlashCommandObj;
 import helper.AppServices;
 import helper.DBOperations;
 import helper.Util;
@@ -55,6 +56,15 @@ public class AppService extends HttpServlet
                 Util.acknowledgeFacebookSave("9876", "facebook", senderId, obj1.getMessage().getText());
 
 
+            }
+            else if(obj.get("name").equals(AppServices.SLASH_COMMAND.toString()))
+            {
+                SlashCommandObj obj1 = new Gson().fromJson(body, SlashCommandObj.class);
+                if(obj1.getCommand().equals("anon") && obj1.getText().equals("end")) {
+                    String aid = DBOperations.getAgentIdFromflockId(obj1.getUserId());
+                    String mapId = DBOperations.getMapIdFromAgentId(aid);
+                    DBOperations.updateMapStatus(mapId, aid, "Completed");
+                }
             }
         }
         catch (Exception e)

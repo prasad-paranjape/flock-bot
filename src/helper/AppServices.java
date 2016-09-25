@@ -24,5 +24,12 @@ public enum AppServices {
                 {
                     return "chat.receiveMessage";
                 }
+            },
+    SLASH_COMMAND
+            {
+                public String toString()
+                {
+                    return "client.slashCommand";
+                }
             }
 }

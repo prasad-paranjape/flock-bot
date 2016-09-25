@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * Created by shashwat.ku on 25/9/16.
  */
 public class Util {
-    public static String homeUrl = "https://shashwatkumar.com";
+    public static String homeUrl = "http://52.25.85.77";
 
     public static String getRequestBody(HttpServletRequest request) throws IOException {
         String body = null;

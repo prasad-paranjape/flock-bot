@@ -1,5 +1,6 @@
 package servlets;
 
+import core.Bot;
 import helper.DBOperations;
 import helper.Util;
 import org.apache.log4j.Logger;
@@ -25,16 +26,23 @@ public class SaveMessage extends HttpServlet
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
-    {
+    void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         System.out.println("In SaveMessage ");
         LOGGER.log(Priority.INFO, request);
 
@@ -43,6 +51,12 @@ public class SaveMessage extends HttpServlet
         String sender_id = request.getParameter("sender_id");
         String name = "";//request.getParameter("name");
         String message = request.getParameter("message");
+        String facebookCustomerId = DBOperations.getFacebookCustomerId(sender_id);
+
+        String flockIdFromAgentId = DBOperations.getAgentIdFromCustomerId(facebookCustomerId);
+        ArrayList array = new ArrayList<String>();
+        array.add(message);
+        new Bot().sendMessage(flockIdFromAgentId, array);
         if (serviceName == null || sender_id == null || companyId == null || message == null)
         {
             return;
@@ -51,13 +65,13 @@ public class SaveMessage extends HttpServlet
         {
             if (DBOperations.saveFacebookMessage(companyId, serviceName, sender_id, name, message))
             {
-                try
-                {
-                    acknowledgeFacebookSave(companyId, serviceName, sender_id, "Acknowledged");
-                } catch (SQLException e)
-                {
-                    e.printStackTrace();
-                }
+//                try
+//                {
+//                    Util.acknowledgeFacebookSave(companyId, serviceName, sender_id, "Acknowledged");
+//                } catch (SQLException e)
+//                {
+//                    e.printStackTrace();
+//                }
             }
         } catch (SQLException e)
         {
@@ -68,18 +82,5 @@ public class SaveMessage extends HttpServlet
         ServletOutputStream out = response.getOutputStream();
         out.print("Leaving CompanyServiceParams");
 
-    }
-
-    private void acknowledgeFacebookSave(String companyId, String serviceName, String sender_id, String acknowledged) throws SQLException, IOException
-    {
-        String token = getCompanyFacebookToken(companyId);
-        String url = homeUrl + "/out?service_name=" + URLEncoder.encode(serviceName) + "&data[app_id]=1233409356702568&data[sender_id]=" + URLEncoder.encode(sender_id) + "&data[message]=" + URLEncoder.encode(acknowledged) + "&data[token]=" + URLEncoder.encode(token) + "&data[company_id]=" + URLEncoder.encode(companyId);
-        Util.sendRequest(url);
-    }
-
-    private String getCompanyFacebookToken(String companyId) throws SQLException
-    {
-        ArrayList<String> listFromDB = DBOperations.getListFromDB("SELECT token FROM serviceFacebook WHERE companyId=" + companyId);
-        return listFromDB.size()>0?listFromDB.get(0):"";
     }
 }

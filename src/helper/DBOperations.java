@@ -78,7 +78,7 @@ public class DBOperations
         }
     }
 
-    private static boolean agentExists(String userId) throws SQLException
+    public static boolean agentExists(String userId) throws SQLException
     {
         {
             String sql = "SELECT count(*) FROM agent WHERE flockUserid=?";
@@ -139,7 +139,7 @@ public class DBOperations
         return true;
     }
 
-    private static void insertFirstInMap(String customerId, String status) throws SQLException
+    public static void insertFirstInMap(String customerId, String status) throws SQLException
     {
         String sql="INSERT INTO messageMap(customerId,status) VALUES (?,?)";
         try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
@@ -150,7 +150,7 @@ public class DBOperations
         }
     }
 
-    private static void insertFacebookCustomer(String customerId, String sender_id) throws SQLException
+    public static void insertFacebookCustomer(String customerId, String sender_id) throws SQLException
     {
 
         {
@@ -165,7 +165,7 @@ public class DBOperations
         }
     }
 
-    private static String insertCustomer(String serviceId, String name) throws SQLException
+    public static String insertCustomer(String serviceId, String name) throws SQLException
     {
 
         {
@@ -183,12 +183,12 @@ public class DBOperations
         }
     }
 
-    private static String getServiceId(String serviceName) throws SQLException
+    public static String getServiceId(String serviceName) throws SQLException
     {
         return getListFromDB("SELECT serviceId FROM service WHERE serviceName='"+serviceName+"'").get(0);
     }
 
-    private static boolean isWaiting(String customerId, String serviceName, String companyId) throws SQLException
+    public static boolean isWaiting(String customerId, String serviceName, String companyId) throws SQLException
     {
         if("facebook".equals(serviceName)){
 
@@ -201,7 +201,7 @@ public class DBOperations
         return false;
     }
 
-    private static void saveMessageData(String customerId, String message, int inout, String status) throws SQLException
+    public static void saveMessageData(String customerId, String message, int inout, String status) throws SQLException
     {
         String sql="SELECT mapId FROM messageMap WHERE customerId="+customerId + " AND status='"+status+"'";
         ArrayList<String> listFromDB = getListFromDB(sql);
@@ -221,7 +221,7 @@ public class DBOperations
         }
     }
 
-    private static boolean isChatting(String customerId, String serviceName, String companyId) throws SQLException
+    public static boolean isChatting(String customerId, String serviceName, String companyId) throws SQLException
     {
         if("facebook".equals(serviceName)){
 
@@ -236,18 +236,31 @@ public class DBOperations
 
     public static String getCustomerSenderId(String agentFlockId) throws SQLException
     {
-        String id = getAgentIdFromflockId(agentFlockId);
-        String sql="SELECT customerId from messageMap WHERE agentId="+id;
+        String sql="SELECT customerId from messageMap WHERE agentId="+agentFlockId + " and status = "+ "'Chatting'";
         String cid = getListFromDB(sql).get(0);
         return getFacebookSenderId(cid);
     }
-    private static String getFacebookCustomerId(String sender_id) throws SQLException
+
+    public static String getMapIdFromAgentId(String agentFlockId) throws SQLException
+    {
+        String sql="SELECT mapId from messageMap WHERE agentId="+agentFlockId + " and status = "+ "'Chatting'";
+        String mapId = getListFromDB(sql).get(0);
+        return mapId;
+    }
+
+    public static String getAgentIdFromCustomerId(String customerId) throws SQLException
+    {
+        String sql="SELECT agentId from messageMap WHERE customerId="+customerId + " and status = "+ "'Chatting'";
+        String aid = getListFromDB(sql).get(0);
+        return getFlockIdFromAgentId(aid);
+    }
+    public static String getFacebookCustomerId(String sender_id) throws SQLException
     {
         ArrayList<String> listFromDB = getListFromDB("SELECT facebookCustomerId FROM customerFacebook WHERE senderId='" + sender_id + "'");
         return listFromDB.size()>0?listFromDB.get(0):null;
     }
 
-    private static String getFacebookSenderId(String customer_id) throws SQLException
+    public static String getFacebookSenderId(String customer_id) throws SQLException
     {
         ArrayList<String> listFromDB = getListFromDB("SELECT senderId FROM customerFacebook WHERE facebookCustomerId=" + customer_id );
         return listFromDB.size()>0?listFromDB.get(0):null;
@@ -271,12 +284,12 @@ public class DBOperations
         return getUnreadChats(mapId);
     }
 
-    private static ArrayList<String> getUnreadChats(String mapId) throws SQLException
+    public static ArrayList<String> getUnreadChats(String mapId) throws SQLException
     {
-        return getListFromDB("SELECT msg FROM messageData WHERE messageMapId=" + mapId);
+        return getListFromDB("SELECT msg FROM messageData WHERE messageMapId=" + mapId + " order by createdAt asc");
     }
 
-    private static void updateMapStatus(String mapId, String agentFlockId, String status) throws SQLException
+    public static void updateMapStatus(String mapId, String agentFlockId, String status) throws SQLException
     {
         String agentId=getAgentIdFromflockId(agentFlockId);
 
@@ -290,10 +303,16 @@ public class DBOperations
         return listFromDB.size()>0?listFromDB.get(0):null;
     }
 
+    public static String getFlockIdFromAgentId(String aid) throws SQLException
+    {
+        ArrayList<String> listFromDB = getListFromDB("SELECT flockUserId FROM agent WHERE agentId=" + aid);
+        return listFromDB.size()>0?listFromDB.get(0):null;
+    }
+
     public static class DB
     {
-        private static final Logger LOGGER = Logger.getLogger(DB.class.getName());
-        private static Connection c = null;
+        public static final Logger LOGGER = Logger.getLogger(DB.class.getName());
+        public static Connection c = null;
         public static final String jdbcDriver = "com.mysql.jdbc.Driver";
         public static final String dbUrl = "jdbc:mysql://localhost:3306/Flockathon";
         public static String DBUSER = "root", DBPASS = "bruteforce";
@@ -328,7 +347,7 @@ public class DBOperations
             }
         }
 
-        private static void closeConnection()
+        public static void closeConnection()
         {
             try
             {

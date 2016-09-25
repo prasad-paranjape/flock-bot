@@ -118,18 +118,105 @@ public class DBOperations
 
     public static boolean saveFacebookMessage(String companyId, String serviceName, String sender_id, String name, String message) throws SQLException
     {
-        isChatting(sender_id, serviceName, companyId);
+        String customerId=getFacebookCustomerId(sender_id);
+
+        if(customerId==null){
+            String serviceId=getServiceId(serviceName);
+            customerId=insertCustomer(serviceId,name);
+            insertFacebookCustomer(customerId,sender_id);
+        }
+        if(isChatting(customerId, serviceName, companyId)){
+
+            saveMessageData(customerId,message,1,"Chatting");
+        }
+        else if(isWaiting(customerId, serviceName, companyId)){
+            saveMessageData(customerId,message,1,"Not Started");
+
+        }
 
         return true;
     }
 
-    private static boolean isChatting(String sender_id, String serviceName, String companyId) throws SQLException
+    private static void insertFacebookCustomer(String customerId, String sender_id) throws SQLException
+    {
+        try (Connection connection = DBOperations.DB.getConnection())
+        {
+            String sql="INSERT INTO customerFacebook(facebookCustomerId,senderId) VALUES (?,?)";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            {
+                preparedStatement.setInt(1, Integer.parseInt(customerId));
+                preparedStatement.setString(2, sender_id);
+                int i = preparedStatement.executeUpdate();
+            }
+        }
+    }
+
+    private static String insertCustomer(String serviceId, String name) throws SQLException
+    {
+        try (Connection connection = DBOperations.DB.getConnection())
+        {
+            String sql="INSERT INTO customer(serviceId,customerName) VALUES (?,?)";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            {
+                preparedStatement.setInt(1, Integer.parseInt(serviceId));
+                preparedStatement.setString(2, name);
+                int i = preparedStatement.executeUpdate();
+                String s = getListFromDB("SELECT max(customerId) FROM customer").get(0);
+
+                return s;
+            }
+        }
+    }
+
+    private static String getServiceId(String serviceName) throws SQLException
+    {
+        return getListFromDB("SELECT serviceId FROM service WHERE serviceName='"+serviceName+"'").get(0);
+    }
+
+    private static boolean isWaiting(String customerId, String serviceName, String companyId) throws SQLException
     {
         if("facebook".equals(serviceName)){
-            String customerId=getFacebookCustomerId(sender_id);
+
             if(customerId==null){
                 return false;
             }
+            String sql="SELECT count(mapId) FROM messageMap WHERE customerId="+customerId + " AND status='Not Started'";
+            return  "1".equals(getListFromDB(sql).get(0));
+        }
+        return false;
+    }
+
+    private static void saveMessageData(String customerId, String message, int inout, String status) throws SQLException
+    {
+        String sql="SELECT mapId FROM messageMap WHERE customerId="+customerId + " AND status='"+status+"'";
+        ArrayList<String> listFromDB = getListFromDB(sql);
+        String mapid=listFromDB.size()>0?listFromDB.get(0):null;
+
+        try (Connection connection = DBOperations.DB.getConnection())
+        {
+            sql="INSERT INTO messageData(messageMapId,msg,inoutstatus) VALUES (?,?,?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql))
+            {
+                preparedStatement.setString(1, mapid);
+                preparedStatement.setString(2, message);
+                preparedStatement.setInt(3, inout);
+                int i = preparedStatement.executeUpdate();
+
+            }
+        }
+    }
+
+    private static boolean isChatting(String customerId, String serviceName, String companyId) throws SQLException
+    {
+        if("facebook".equals(serviceName)){
+
+            if(customerId==null){
+                return false;
+            }
+            String sql="SELECT count(mapId) FROM messageMap WHERE customerId="+customerId + " AND status='Chatting'";
+            return  "1".equals(getListFromDB(sql).get(0));
         }
         return false;
     }
@@ -167,7 +254,7 @@ public class DBOperations
     {
         String agentId=getAgentIdFromflockId(agentFlockId);
 
-        String sql = "UPDATE messageMap SET status='" + status + "' ,  WHERE mapId=" + mapId;
+        String sql = "UPDATE messageMap SET status='" + status + "' ,agentId="+agentId+"  WHERE mapId=" + mapId;
         DB.executeNonQuery(sql);
     }
 

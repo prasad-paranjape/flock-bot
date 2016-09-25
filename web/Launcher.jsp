@@ -22,6 +22,8 @@
             padding: 5px;
             border: 1px solid;
             border-radius:2px;
+            background-color: #f4f4f4;
+            width: 75%;
         }
         body{
             font-size: 1.2em;

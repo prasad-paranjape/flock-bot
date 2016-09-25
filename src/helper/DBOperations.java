@@ -134,6 +134,7 @@ public class DBOperations
         }
         else{
             insertFirstInMap(customerId,"Not Started");
+            saveMessageData(customerId,message,1,"Not Started");
         }
 
         return true;

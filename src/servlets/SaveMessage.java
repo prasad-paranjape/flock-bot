@@ -66,13 +66,7 @@ public class SaveMessage extends HttpServlet
                 ArrayList array = new ArrayList<String>();
                 array.add(message);
                 new Bot().sendMessage(flockIdFromAgentId, array);
-//                try
-//                {
-//                    Util.acknowledgeFacebookSave(companyId, serviceName, sender_id, "Acknowledged");
-//                } catch (SQLException e)
-//                {
-//                    e.printStackTrace();
-//                }
+
             }
 
         } catch (SQLException e)

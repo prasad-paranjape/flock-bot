@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Anon.iml" filepath="$PROJECT_DIR$/Anon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FlockChatConnect.iml" filepath="$PROJECT_DIR$/FlockChatConnect.iml" />
     </modules>
   </component>
 </project>

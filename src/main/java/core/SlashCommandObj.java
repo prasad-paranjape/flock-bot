@@ -6,7 +6,7 @@ package core;
 public class SlashCommandObj {
     public String chat;
     public String name;
-    public String chatName;
+    private String chatName;
     public String text;
     public String userName;
     public String userId;

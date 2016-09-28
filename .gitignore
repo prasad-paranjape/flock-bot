@@ -3,5 +3,4 @@
 .idea/dataSources.xml
 .idea/dataSources.ids
 out/
-lib/.DS_Store
-
+**/.DS_Store

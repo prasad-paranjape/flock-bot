@@ -19,26 +19,23 @@ public class DBOperations
 
     public static ArrayList<ArrayList<String>> getArrayListFromDB(String sql) throws SQLException
     {
-        try (Statement st = DB.getConnection().createStatement())
+        try (Statement st = DB.getConnection().createStatement(); ResultSet rs = st.executeQuery(sql))
         {
-            try (ResultSet rs = st.executeQuery(sql))
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int cols = rsmd.getColumnCount();
+            ArrayList<ArrayList<String>> list = new ArrayList<>();
+            while (rs.next())
             {
-                ResultSetMetaData rsmd = rs.getMetaData();
-                int cols = rsmd.getColumnCount();
-                ArrayList<ArrayList<String>> list = new ArrayList<>();
-                while (rs.next())
+                ArrayList<String> row = new ArrayList<>();
+
+                for (int i = 1; i <= cols; i++)
                 {
-                    ArrayList<String> row = new ArrayList<>();
-
-                    for (int i = 1; i <= cols; i++)
-                    {
-                        row.add(rs.getString(i));
-                    }
-                    list.add(row);
+                    row.add(rs.getString(i));
                 }
-
-                return list;
+                list.add(row);
             }
+
+            return list;
         }
     }
 

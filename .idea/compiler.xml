@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="Anon" />
+        <module name="FlockChatConnect" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Anon" target="1.5" />
+      <module name="FlockChatConnect" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

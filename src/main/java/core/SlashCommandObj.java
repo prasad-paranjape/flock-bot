@@ -4,13 +4,13 @@ package core;
  * Created by shashwat.ku on 25/9/16.
  */
 public class SlashCommandObj {
-    public String chat;
-    public String name;
+    private String chat;
+    private String name;
     private String chatName;
-    public String text;
-    public String userName;
-    public String userId;
-    public String command;
+    private String text;
+    private String userName;
+    private String userId;
+    private String command;
 
     public String getChat() {
         return chat;

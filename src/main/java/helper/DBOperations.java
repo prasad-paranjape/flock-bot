@@ -1,7 +1,6 @@
 package helper;
 
 import core.AppServiceObj;
-import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -57,12 +56,11 @@ public class DBOperations
 
     public static void saveAppService(AppServiceObj appServiceObj) throws SQLException
     {
-
         {
             if (!agentExists(appServiceObj.userId))
             {
                 String sql = "insert into agent (flockUserid, flockUsertoken, flockName, companyId) values(?,?,?,?)";
-                try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
+                try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
                 {
                     preparedStatement.setString(1, appServiceObj.userId);
                     preparedStatement.setString(2, appServiceObj.userToken);
@@ -79,7 +77,7 @@ public class DBOperations
     {
         {
             String sql = "SELECT count(*) FROM agent WHERE flockUserid=?";
-            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setString(1, userId);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -103,7 +101,7 @@ public class DBOperations
 
         {
             String sql = "UPDATE agent SET status='InActive' WHERE flockUserid= ?";
-            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setString(1, userId);
                 int i = preparedStatement.executeUpdate();
@@ -140,7 +138,7 @@ public class DBOperations
     public static void insertFirstInMap(String customerId, String status) throws SQLException
     {
         String sql="INSERT INTO messageMap(customerId,status) VALUES (?,?)";
-        try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
+        try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
         {
             preparedStatement.setInt(1, Integer.parseInt(customerId));
             preparedStatement.setString(2, status);
@@ -154,7 +152,7 @@ public class DBOperations
         {
             String sql="INSERT INTO customerFacebook(facebookCustomerId,senderId) VALUES (?,?)";
 
-            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setInt(1, Integer.parseInt(customerId));
                 preparedStatement.setString(2, sender_id);
@@ -169,7 +167,7 @@ public class DBOperations
         {
             String sql="INSERT INTO customer(serviceId,customerName) VALUES (?,?)";
 
-            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setInt(1, Integer.parseInt(serviceId));
                 preparedStatement.setString(2, name);
@@ -208,7 +206,7 @@ public class DBOperations
 
         {
             sql="INSERT INTO messageData(messageMapId,msg,inoutstatus) VALUES (?,?,?)";
-            try (PreparedStatement preparedStatement = DBOperations.DB.getConnection().prepareStatement(sql))
+            try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
             {
                 preparedStatement.setString(1, mapid);
                 preparedStatement.setString(2, message);
@@ -305,56 +303,6 @@ public class DBOperations
     {
         ArrayList<String> listFromDB = getListFromDB("SELECT flockUserId FROM agent WHERE agentId=" + aid);
         return listFromDB.size()>0?listFromDB.get(0):null;
-    }
-
-    public static class DB
-    {
-        public static final Logger LOGGER = Logger.getLogger(DB.class.getName());
-        public static Connection c = null;
-        public static final String jdbcDriver = "com.mysql.jdbc.Driver";
-        public static final String dbUrl = "jdbc:mysql://localhost:3306/Flockathon";
-        public static String DBUSER = "root", DBPASS = "bruteforce";
-
-        public static Connection getConnection()
-        {
-            if (c == null)
-            {
-                synchronized (DB.class)
-                {
-                    if (c == null)
-                    {
-                        try
-                        {
-                            Class.forName(jdbcDriver);
-                            c = DriverManager.getConnection(dbUrl, DBUSER, DBPASS);
-                        } catch (Exception e)
-                        {
-                            LOGGER.error("Unable to connect to Database!!", e);
-                        }
-                    }
-                }
-            }
-            return c;
-        }
-
-        public static void executeNonQuery(String sql) throws SQLException
-        {
-            try (Statement stmt = c.createStatement())
-            {
-                stmt.executeUpdate(sql);
-            }
-        }
-
-        public static void closeConnection()
-        {
-            try
-            {
-                c.close();
-            } catch (SQLException e)
-            {
-                LOGGER.error("From closeConnection", e);
-            }
-        }
     }
 
 }

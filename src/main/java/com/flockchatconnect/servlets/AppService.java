@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class AppService extends HttpServlet
 {
-    private static final Logger LOGGER = Logger.getLogger(AppService.class);
+    private static final Logger logger = Logger.getLogger(AppService.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -40,6 +40,7 @@ public class AppService extends HttpServlet
         try {
             Map obj = new Gson().fromJson(body, Map.class);
             if(obj.get("name").equals(AppServices.APP_INSTALL.toString())) {
+                logger.debug("Entering agent save");
                 AppServiceObj obj1 = new Gson().fromJson(body, AppServiceObj.class);
                 obj1.save();
             }

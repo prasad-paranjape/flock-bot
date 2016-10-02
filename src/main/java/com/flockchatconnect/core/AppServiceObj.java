@@ -18,11 +18,13 @@ public class AppServiceObj {
     public void save() {
         try
         {
+            logger.debug("Entering save Method");
             db.saveAppService(this);
-        } catch (SQLException e)
+        } catch (Exception e)
         {
             logger.debug("Error message in saving ", e);
         }
+        logger.debug("Leaving save method");
     }
 
     public String getUserToken() {

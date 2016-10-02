@@ -1,6 +1,7 @@
 package com.flockchatconnect.helper;
 
 import com.flockchatconnect.core.AppServiceObj;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,6 +12,9 @@ import java.util.List;
  */
 public class DBOperations
 {
+    private static Logger logger = Logger.getLogger(DBOperations.class.getName());
+    static Connection dbObj = DB.getConnection();
+
     public static void closeConnection()
     {
         DB.closeConnection();
@@ -18,7 +22,7 @@ public class DBOperations
 
     public static ArrayList<ArrayList<String>> getArrayListFromDB(String sql) throws SQLException
     {
-        try (Statement st = DB.getConnection().createStatement(); ResultSet rs = st.executeQuery(sql))
+        try (Statement st = dbObj.createStatement(); ResultSet rs = st.executeQuery(sql))
         {
             ResultSetMetaData rsmd = rs.getMetaData();
             int cols = rsmd.getColumnCount();
@@ -40,7 +44,7 @@ public class DBOperations
 
     public static ArrayList<String> getListFromDB(String sql) throws SQLException
     {
-        try (Statement st = DB.getConnection().createStatement())
+        try (Statement st = dbObj.createStatement())
         {
             try (ResultSet rs = st.executeQuery(sql))
             {
@@ -56,27 +60,27 @@ public class DBOperations
 
     public static void saveAppService(AppServiceObj appServiceObj) throws SQLException
     {
+        logger.debug("Entering saveAppService Method");
+        if (!agentExists(appServiceObj.userId))
         {
-            if (!agentExists(appServiceObj.userId))
+            String sql = "insert into agent (flockUserid, flockUsertoken, companyId) values(?,?,?)";
+            try (PreparedStatement preparedStatement = dbObj.prepareStatement(sql))
             {
-                String sql = "insert into agent (flockUserid, flockUsertoken, flockName, companyId) values(?,?,?,?)";
-                try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
-                {
-                    preparedStatement.setString(1, appServiceObj.userId);
-                    preparedStatement.setString(2, appServiceObj.userToken);
-                    preparedStatement.setString(3, appServiceObj.name);
-                    preparedStatement.setInt(4, 1);
-                    int i = preparedStatement.executeUpdate();
-                    System.out.println(i + " records inserted");
-                }
+                preparedStatement.setString(1, appServiceObj.userId);
+                preparedStatement.setString(2, appServiceObj.userToken);
+                preparedStatement.setInt(3, 9878);
+                int i = preparedStatement.executeUpdate();
+                dbObj.commit();
+                System.out.println(i + " records inserted");
             }
         }
+        logger.debug("Leaving saveAppService Method");
     }
 
     public static boolean agentExists(String userId) throws SQLException
     {
         String sql = "SELECT count(*) FROM agent WHERE flockUserid=?";
-        PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql);
+        PreparedStatement preparedStatement = dbObj.prepareStatement(sql);
         preparedStatement.setString(1, userId);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next())
@@ -97,10 +101,11 @@ public class DBOperations
 
         {
             String sql = "UPDATE agent SET status='InActive' WHERE flockUserid= ?";
-            try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
+            try (PreparedStatement preparedStatement = dbObj.prepareStatement(sql))
             {
                 preparedStatement.setString(1, userId);
                 int i = preparedStatement.executeUpdate();
+                dbObj.commit();
                 System.out.println(i + " record updated");
             }
         }
@@ -136,7 +141,7 @@ public class DBOperations
     public static void insertFirstInMap(String customerId, String status) throws SQLException
     {
         String sql = "INSERT INTO messageMap(customerId,status) VALUES (?,?)";
-        try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
+        try (PreparedStatement preparedStatement = dbObj.prepareStatement(sql))
         {
             preparedStatement.setInt(1, Integer.parseInt(customerId));
             preparedStatement.setString(2, status);
@@ -150,7 +155,7 @@ public class DBOperations
         {
             String sql = "INSERT INTO customerFacebook(facebookCustomerId,senderId) VALUES (?,?)";
 
-            try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
+            try (PreparedStatement preparedStatement = dbObj.prepareStatement(sql))
             {
                 preparedStatement.setInt(1, Integer.parseInt(customerId));
                 preparedStatement.setString(2, sender_id);
@@ -165,7 +170,7 @@ public class DBOperations
         {
             String sql = "INSERT INTO customer(serviceId,customerName) VALUES (?,?)";
 
-            try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
+            try (PreparedStatement preparedStatement = dbObj.prepareStatement(sql))
             {
                 preparedStatement.setInt(1, Integer.parseInt(serviceId));
                 preparedStatement.setString(2, name);
@@ -206,7 +211,7 @@ public class DBOperations
 
         {
             sql = "INSERT INTO messageData(messageMapId,msg,inoutstatus) VALUES (?,?,?)";
-            try (PreparedStatement preparedStatement = DB.getConnection().prepareStatement(sql))
+            try (PreparedStatement preparedStatement = dbObj.prepareStatement(sql))
             {
                 preparedStatement.setString(1, mapid);
                 preparedStatement.setString(2, message);

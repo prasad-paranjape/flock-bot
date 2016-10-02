@@ -13,31 +13,27 @@ import java.util.Properties;
 /**
  * Created by shashwat on 29/9/16.
  */
-public class DB
+class DB
 {
     public static final Logger logger = Logger.getLogger(DB.class.getName());
-    public static Connection c = null;
-    public static String jdbcDriver = null;
-    public static String dbUrl = null;
-    public static String DBUSER = null;
+    private static Connection c = null;
+    private static String jdbcDriver = null;
+    private static String dbUrl = null;
+    private static String DBUSER = null;
     private static String DBPASS = null;
+    private static boolean autoCommit = true;
 
     static
     {
-        try
-        {
-            Properties properties = loadPropertiesFile();
-            jdbcDriver = properties.getProperty("JDBC_DRIVER");
-            dbUrl = properties.getProperty("DB_URL");
-            DBUSER = properties.getProperty("DB_USER");
-            DBPASS = properties.getProperty("DB_PASSWORD");
-        } catch (IOException e)
-        {
-            logger.error("Error in reading propertie", e);
-        }
+        Properties properties = loadPropertiesFile();
+        jdbcDriver = properties.getProperty("JDBC_DRIVER");
+        dbUrl = properties.getProperty("DB_URL");
+        DBUSER = properties.getProperty("DB_USER");
+        DBPASS = properties.getProperty("DB_PASSWORD");
+        autoCommit = Boolean.parseBoolean(properties.getProperty("AUTO_COMMIT"));
     }
 
-    public static Connection getConnection()
+    static Connection getConnection()
     {
         logger.debug("Getting connection");
         if (c == null)
@@ -50,6 +46,7 @@ public class DB
                     {
                         Class.forName(jdbcDriver);
                         c = DriverManager.getConnection(dbUrl, DBUSER, DBPASS);
+                        c.setAutoCommit(autoCommit);
                     } catch (Exception e)
                     {
                         logger.error("Unable to connect to Database!!", e);
@@ -60,7 +57,7 @@ public class DB
         return c;
     }
 
-    public static void executeNonQuery(String sql) throws SQLException
+    static void executeNonQuery(String sql) throws SQLException
     {
         try (Statement stmt = c.createStatement())
         {
@@ -68,7 +65,7 @@ public class DB
         }
     }
 
-    public static void closeConnection()
+    static void closeConnection()
     {
         try
         {
@@ -79,13 +76,20 @@ public class DB
         }
     }
 
-    public static Properties loadPropertiesFile() throws IOException
+    private static Properties loadPropertiesFile()
     {
         Properties prop = new Properties();
+        try
+        {
 //        InputStream in = new FileInputStream("/db.properties");
-        InputStream in = DB.class.getResourceAsStream("db.properties");
-        prop.load(in);
-        in.close();
+            InputStream in = DB.class.getResourceAsStream("/db.properties");
+            prop.load(in);
+            in.close();
+        }
+        catch (IOException e)
+        {
+            logger.error("Cannot read properties file", e);
+        }
         return prop;
     }
 }

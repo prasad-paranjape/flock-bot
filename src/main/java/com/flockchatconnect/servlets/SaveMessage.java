@@ -1,8 +1,7 @@
-package servlets;
+package com.flockchatconnect.servlets;
 
-import core.Bot;
-import helper.DBOperations;
-import helper.Util;
+import com.flockchatconnect.core.Bot;
+import com.flockchatconnect.helper.DBOperations;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -42,7 +40,7 @@ public class SaveMessage extends HttpServlet
         }
     }
 
-    void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         System.out.println("In SaveMessage ");
         LOGGER.log(Priority.INFO, request);
 
@@ -63,7 +61,7 @@ public class SaveMessage extends HttpServlet
                 String facebookCustomerId = DBOperations.getFacebookCustomerId(sender_id);
 
                 String flockIdFromAgentId = DBOperations.getAgentIdFromCustomerId(facebookCustomerId);
-                ArrayList array = new ArrayList<String>();
+                ArrayList<String> array = new ArrayList<String>();
                 array.add(message);
                 new Bot().sendMessage(flockIdFromAgentId, array);
 

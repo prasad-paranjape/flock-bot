@@ -1,6 +1,6 @@
-package core;
+package com.flockchatconnect.core;
 
-import helper.DBOperations;
+import com.flockchatconnect.helper.DBOperations;
 import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
@@ -15,9 +15,14 @@ public class AppServiceObj {
     public String userId;
     DBOperations db=new DBOperations();
 
-    public void save() throws SQLException {
-        logger.debug("Error message in saving ");
-        db.saveAppService(this);
+    public void save() {
+        try
+        {
+            db.saveAppService(this);
+        } catch (SQLException e)
+        {
+            logger.debug("Error message in saving ", e);
+        }
     }
 
     public String getUserToken() {

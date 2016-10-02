@@ -1,8 +1,7 @@
-package helper;
+package com.flockchatconnect.helper;
 
 import org.apache.log4j.Logger;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;

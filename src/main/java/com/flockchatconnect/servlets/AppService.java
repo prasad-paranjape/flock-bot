@@ -1,12 +1,12 @@
-package servlets;
+package com.flockchatconnect.servlets;
 
 import com.google.gson.Gson;
-import core.AgentReplyObj;
-import core.AppServiceObj;
-import core.SlashCommandObj;
-import helper.AppServices;
-import helper.DBOperations;
-import helper.Util;
+import com.flockchatconnect.core.AgentReplyObj;
+import com.flockchatconnect.core.AppServiceObj;
+import com.flockchatconnect.core.SlashCommandObj;
+import com.flockchatconnect.helper.AppServices;
+import com.flockchatconnect.helper.DBOperations;
+import com.flockchatconnect.helper.Util;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

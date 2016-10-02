@@ -1,4 +1,4 @@
-package helper;
+package com.flockchatconnect.helper;
 
 /**
  * Created by shashwat.ku on 25/9/16.

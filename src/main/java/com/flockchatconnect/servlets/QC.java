@@ -1,22 +1,18 @@
-package servlets;
+package com.flockchatconnect.servlets;
 
 import com.google.gson.Gson;
-import core.AppServiceObj;
-import core.LauncherEventObj;
-import helper.DBOperations;
-import helper.Util;
+import com.flockchatconnect.core.LauncherEventObj;
+import com.flockchatconnect.helper.DBOperations;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

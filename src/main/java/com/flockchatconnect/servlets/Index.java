@@ -1,6 +1,5 @@
-package servlets;
+package com.flockchatconnect.servlets;
 
-import helper.DBOperations;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
@@ -14,10 +13,10 @@ import java.io.IOException;
 /**
  * Created by moiz.p on 24/09/16.
  */
-public class CompanyServiceParams extends HttpServlet
+public class Index extends HttpServlet
 {
-    private static final Logger LOGGER = Logger.getLogger(CompanyServiceParams.class);
-    static DBOperations db=new DBOperations();
+    Logger LOGGER= Logger.getLogger("Config");
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         processRequest( request,  response);
@@ -29,16 +28,10 @@ public class CompanyServiceParams extends HttpServlet
     }
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
-        System.out.println("In CompanyServiceParams ");
         LOGGER.log(Priority.INFO, request);
 
-        String companyId = request.getParameter("companyId");
-        String serviceId = request.getParameter("serviceId");
-        db.getCompanyServiceParams(companyId,serviceId);
-
-
         ServletOutputStream out = response.getOutputStream();
-        out.print("Leaving CompanyServiceParams");
+        out.print("Index");
 
     }
 }

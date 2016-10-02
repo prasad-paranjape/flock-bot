@@ -1,4 +1,4 @@
-package core;
+package com.flockchatconnect.core;
 
 /**
  * Created by shashwat.ku on 25/9/16.

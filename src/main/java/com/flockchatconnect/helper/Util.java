@@ -1,16 +1,14 @@
-package helper;
+package com.flockchatconnect.helper;
 
-import core.Bot;
+import com.flockchatconnect.core.Bot;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.HttpResponse;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -26,7 +25,7 @@ import java.util.ArrayList;
  * Created by shashwat.ku on 25/9/16.
  */
 public class Util {
-    public static String homeUrl = "http://52.25.85.77";
+    private static String homeUrl = "http://52.25.85.77";
 
     public static String getRequestBody(HttpServletRequest request) throws IOException {
         String body = null;
@@ -45,23 +44,17 @@ public class Util {
             } else {
                 stringBuilder.append("");
             }
-        } catch (IOException ex) {
-            throw ex;
         } finally {
             if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException ex) {
-                    throw ex;
-                }
+                bufferedReader.close();
             }
         }
 
         body = stringBuilder.toString();
         return body;
     }
-    public static boolean sendRequest(String endpoint) throws IOException {
-        HttpClient client = new DefaultHttpClient();
+    private static boolean sendRequest(String endpoint) throws IOException {
+        HttpClient client = HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet(endpoint);
         HttpResponse response = (HttpResponse) client.execute(httpGet);
 
@@ -74,7 +67,7 @@ public class Util {
     }
 
     public static String sendJsonPostRequest(String url, String data) throws IOException {
-        HttpClient client = new DefaultHttpClient();
+        HttpClient client = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(url);
 
         StringEntity se = new StringEntity(data, ContentType.APPLICATION_JSON);
@@ -84,14 +77,13 @@ public class Util {
         post.addHeader("X-Flock-User-Token", Bot.TOKEN);
 
         HttpResponse response = client.execute(post);
-        String json_string = EntityUtils.toString(response.getEntity());
-        return json_string;
+        return EntityUtils.toString(response.getEntity());
     }
 
     public static void acknowledgeFacebookSave(String companyId, String serviceName, String sender_id, String acknowledged) throws SQLException, IOException
     {
         String token = getCompanyFacebookToken(companyId);
-        String url = homeUrl + "/out?service_name=" + URLEncoder.encode(serviceName) + "&data[app_id]=1233409356702568&data[sender_id]=" + URLEncoder.encode(sender_id) + "&data[message]=" + URLEncoder.encode(acknowledged) + "&data[token]=" + URLEncoder.encode(token) + "&data[company_id]=" + URLEncoder.encode(companyId);
+        String url = homeUrl + "/out?service_name=" + URLEncoder.encode(serviceName, StandardCharsets.UTF_8.toString()) + "&data[app_id]=1233409356702568&data[sender_id]=" + URLEncoder.encode(sender_id, StandardCharsets.UTF_8.toString()) + "&data[message]=" + URLEncoder.encode(acknowledged, StandardCharsets.UTF_8.toString()) + "&data[token]=" + URLEncoder.encode(token, StandardCharsets.UTF_8.toString()) + "&data[company_id]=" + URLEncoder.encode(companyId, StandardCharsets.UTF_8.toString());
         Util.sendRequest(url);
     }
 

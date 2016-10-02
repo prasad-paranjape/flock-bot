@@ -1,8 +1,9 @@
-package servlets;
+package com.flockchatconnect.servlets;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by moiz.p on 24/09/16.
  */
-public class Config extends HttpServlet
+public class Canned extends HttpServlet
 {
     Logger LOGGER= Logger.getLogger("Config");
 
@@ -26,12 +27,11 @@ public class Config extends HttpServlet
     {
         processRequest( request,  response);
     }
-    void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException
+    void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
-//        request.
-        ServletOutputStream out = response.getOutputStream();
-        out.print("Hi");
+        LOGGER.log(Priority.INFO, request);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Canned.jsp");
+        requestDispatcher.forward(request,response);
 
-        LOGGER.log(Priority.DEBUG,request);
     }
 }

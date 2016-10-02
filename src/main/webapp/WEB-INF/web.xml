@@ -5,7 +5,7 @@
          version="3.1">
     <servlet>
         <servlet-name>Service</servlet-name>
-        <servlet-class>servlets.Config</servlet-class>
+        <servlet-class>com.flockchatconnect.servlets.Config</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Service</servlet-name>
@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>AppService</servlet-name>
-        <servlet-class>servlets.AppService</servlet-class>
+        <servlet-class>com.flockchatconnect.servlets.AppService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AppService</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>Canned</servlet-name>
-        <servlet-class>servlets.Canned</servlet-class>
+        <servlet-class>com.flockchatconnect.servlets.Canned</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Canned</servlet-name>
@@ -32,7 +32,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>QC</servlet-name>
-        <servlet-class>servlets.QC</servlet-class>
+        <servlet-class>com.flockchatconnect.servlets.QC</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>QC</servlet-name>
@@ -41,7 +41,7 @@
 
     <servlet>
         <servlet-name>StartChat</servlet-name>
-        <servlet-class>servlets.InitiateChat</servlet-class>
+        <servlet-class>com.flockchatconnect.servlets.InitiateChat</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>StartChat</servlet-name>
@@ -49,7 +49,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>SaveMessage</servlet-name>
-        <servlet-class>servlets.SaveMessage</servlet-class>
+        <servlet-class>com.flockchatconnect.servlets.SaveMessage</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SaveMessage</servlet-name>

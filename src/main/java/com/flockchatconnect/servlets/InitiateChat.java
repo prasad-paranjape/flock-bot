@@ -1,7 +1,7 @@
-package servlets;
+package com.flockchatconnect.servlets;
 
-import core.Bot;
-import helper.DBOperations;
+import com.flockchatconnect.core.Bot;
+import com.flockchatconnect.helper.DBOperations;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
